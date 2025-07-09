@@ -3,7 +3,7 @@ services:
     build: ./backend
     container_name: internship-backend
     ports:
-      - "${BACKEND_PORT}:8000"
+      - "${BACKEND_PORT}:8003"
     depends_on:
       - db
     environment:
@@ -16,7 +16,7 @@ services:
       - ./backend:/app
     env_file:
       - .env
-    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8003 --reload
 
   frontend:
     build: ./frontend
@@ -32,10 +32,6 @@ services:
     image: pgvector/pgvector:pg15
     container_name: internship-db
     restart: always
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - "${POSTGRES_PORT}:5432"
     healthcheck:
@@ -45,6 +41,12 @@ services:
       retries: 5
     env_file:
       - .env
+    environment:
+      - DATABASE_HOST=${DATABASE_HOST}
+      - DATABASE_PORT=${DATABASE_PORT}
+      - DATABASE_NAME=${DATABASE_NAME}
+      - DATABASE_USER=${DATABASE_USER}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
     volumes:
       - pgdata:/var/lib/postgresql/data
 
