@@ -23,3 +23,9 @@ build/
 # Environment files
 .env
 *.local
+
+# pycache and Python files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
