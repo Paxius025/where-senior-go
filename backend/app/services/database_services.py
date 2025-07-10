@@ -16,7 +16,6 @@ logger = logging.getLogger(__name__)
 def get_connection(retries=5, delay=5):
     for attempt in range(retries):
         try:
-            print(f"database port: {os.getenv('DATABASE_PORT')}")
             return psycopg2.connect(
                 host=os.getenv("DATABASE_HOST"),
                 port=int(os.getenv("DATABASE_PORT")),
