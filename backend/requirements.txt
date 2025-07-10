@@ -4,7 +4,7 @@ python-jose[cryptography]
 passlib[bcrypt]
 pydantic
 psycopg2-binary
-prisma
+django 
 sentence-transformers
 pythainlp
 openai
