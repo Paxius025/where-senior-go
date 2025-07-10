@@ -1,6 +1,4 @@
-# data.py
-
-# --- ข้อมูลคณะและสาขา ---
+# --- Faculty and Major Data ---
 FACULTY_MAJOR_DATA = [
     {
         "faculty_name": "คณะทรัพยากรธรรมชาติและอุตสาหกรรมเกษตร",
@@ -50,14 +48,14 @@ FACULTY_MAJOR_DATA = [
     }
 ]
 
-# --- ข้อมูล Fields (หมวดหมู่งาน) ---
+# --- Fields Data (Job Categories) ---
 FIELD_NAMES = [
     "Software Development", "Data Science", "Marketing", "Human Resources",
     "Finance", "Design", "Operations", "Engineering", "Research", "Sales",
     "Customer Service", "IT Support", "Content Creation", "Business Development"
 ]
 
-# --- ข้อมูล Tags (แท็กสำหรับรีวิว) ---
+# --- Tags Data (Tags for Reviews) ---
 TAG_NAMES = [
     "Work-Life Balance", "Good Mentorship", "Challenging Work", "Great Culture",
     "Learning Opportunity", "High Pressure", "Good Benefits", "Remote Friendly",

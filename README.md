@@ -35,7 +35,13 @@
   ```bash
   docker-compose down -v
   ```
+## จำลองฐานข้อมูล
 
+``bash
+docker exec -it internship-backend sh
+
+PYTHONPATH=./app python -m app.seed.main_seeder
+```
 ## หมายเหตุ
 
 - ตัวเลือก `--build` จะบังคับให้ build ใหม่ทุกครั้งที่รัน
