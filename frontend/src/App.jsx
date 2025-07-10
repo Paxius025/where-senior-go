@@ -1,14 +1,23 @@
 import './styles/style.css'
-import { FaBeer } from "react-icons/fa";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import RegisterPage from "./pages/RegisterPage.jsx";
+import LoginPage from "./pages/LoginPage.jsx";  
+import DashboardPage from "./pages/DashboardPage";
+
 function App() {
 
   return (
     <>
-<div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500">
-  <p className="flex items-center gap-2 text-5xl font-extrabold text-white drop-shadow-lg animate-pulse">
-    Hello, Let's go for a <FaBeer />
-  </p>
-</div>
+      <BrowserRouter>
+        <div className="App">
+          <h1>Welcome to Where Senior Go</h1>
+          <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/dashboard" element={<DashboardPage />} />
+          </Routes>
+        </div>
+      </BrowserRouter>
 
     </>
   )

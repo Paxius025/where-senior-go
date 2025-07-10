@@ -1,5 +1,5 @@
 import { json } from "express";
-import pool from "../database/db.js";
+import pool from "./db.js";
 
 export const healthCheck = async () => {
   let client;

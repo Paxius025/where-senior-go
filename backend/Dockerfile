@@ -12,8 +12,8 @@ RUN apt-get update && apt-get install -y git curl \
 COPY requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
 
-# clone model to models folder
-RUN git clone https://huggingface.co/mrp/simcse-model-wangchanberta ./models/simcse-model-wangchanberta
+# # clone model to models folder
+# RUN git clone https://huggingface.co/mrp/simcse-model-wangchanberta ./models/simcse-model-wangchanberta
 
 # copy other source code
 COPY . /app

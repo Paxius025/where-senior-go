@@ -31,6 +31,7 @@ services:
       - DB_PASSWORD=${POSTGRES_PASSWORD}
       - DB_HOST=db
       - DB_PORT=${POSTGRES_PORT}
+      - SESSION_SECRET=${SESSION_SECRET}
     volumes:
       - ./backend-web:/app
     env_file:

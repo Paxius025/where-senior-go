@@ -1,4 +1,4 @@
-import { healthCheck } from "../services/database.services.js";
+import { healthCheck } from "./database.services.js";
 export const healthCheckController = async (req, res) => {
     try {
         const result = await healthCheck();
