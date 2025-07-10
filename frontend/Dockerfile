@@ -1,20 +1,17 @@
-# Use Node.js base image with pnpm
+# Use Node.js base image with npm
 FROM node:20.12.2-alpine
 
 # Set working directory
 WORKDIR /app
 
-# Install pnpm globally
-RUN npm install -g pnpm
-
 # Copy source code
 COPY . .
 
 # Install dependencies
-RUN pnpm install
+RUN npm install
 
 # Expose Vite dev server port
-EXPOSE 5173
+EXPOSE 5176
 
 # Start dev server
-CMD ["pnpm", "dev"]
+CMD ["npm", "dev"]
