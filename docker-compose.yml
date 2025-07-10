@@ -32,7 +32,7 @@ services:
       - DB_HOST=db
       - DB_PORT=${POSTGRES_PORT}
     volumes:
-      - ./backend-web-service:/app
+      - ./backend-web:/app
     env_file:
       - .env
     command: npm run dev
