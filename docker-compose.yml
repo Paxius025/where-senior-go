@@ -1,22 +1,22 @@
 services:
-  backend:
-    build: ./backend
-    container_name: internship-backend-RAG
-    ports:
-      - "${BACKEND_PORT}:8003"
-    depends_on:
-      - db
-    environment:
-      - DB_NAME=${POSTGRES_DB}
-      - DB_USER=${POSTGRES_USER}
-      - DB_PASSWORD=${POSTGRES_PASSWORD}
-      - DB_HOST=db
-      - DB_PORT=${POSTGRES_PORT}
-    volumes:
-      - ./backend:/app
-    env_file:
-      - .env
-    command: uvicorn app.main:app --host 0.0.0.0 --port 8003 --reload
+  # backend:
+  #   build: ./backend
+  #   container_name: internship-backend-RAG
+  #   ports:
+  #     - "${BACKEND_PORT}:8003"
+  #   depends_on:
+  #     - db
+  #   environment:
+  #     - DB_NAME=${POSTGRES_DB}
+  #     - DB_USER=${POSTGRES_USER}
+  #     - DB_PASSWORD=${POSTGRES_PASSWORD}
+  #     - DB_HOST=db
+  #     - DB_PORT=${POSTGRES_PORT}
+  #   volumes:
+  #     - ./backend:/app
+  #   env_file:
+  #     - .env
+  #   command: uvicorn app.main:app --host 0.0.0.0 --port 8003 --reload
   
   backend-web-service:
     build: ./backend-web
@@ -45,6 +45,7 @@ services:
       - "${FRONTEND_PORT}:5173"
     volumes:
       - ./frontend:/app
+      - /app/node_modules
     working_dir: /app
     command: npm run dev
 
