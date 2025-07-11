@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import Navbar from "../components/Navbar";
-import { checkSession } from "../services/authService";
+import Navbar from "../components/Navbar.jsx";
+import { checkSession } from "../Authentication/services/authService.js";
 
 export default function DashboardPage() {
   const navigate = useNavigate();

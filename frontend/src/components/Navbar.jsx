@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { logoutService, checkSession } from "../services/authService";
+import { logoutService, checkSession } from "../Authentication/services/authService.js";
 import Swal from "sweetalert2";
 
 export default function Navbar() {

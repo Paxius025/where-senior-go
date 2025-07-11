@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import "../styles/style.css";
+import "../../styles/style.css";
 import { Link } from "react-router-dom";
 import { IoIosCheckmarkCircle } from "react-icons/io";
-;
 
 export default function RegisterForm({ onSubmit }) {
   const [email, setEmail] = useState("");

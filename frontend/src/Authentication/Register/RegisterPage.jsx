@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import RegisterForm from "../components/RegisterForm.jsx";
+import RegisterForm from "./RegisterForm.jsx";
 import { registerService } from "../services/authService.js";
 import { Link } from "react-router-dom";
 import { IoArrowBack } from "react-icons/io5";

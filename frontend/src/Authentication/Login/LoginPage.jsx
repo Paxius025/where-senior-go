@@ -1,5 +1,5 @@
 import React from "react";
-import LoginForm from "../components/LoginForm.jsx";
+import LoginForm from "./LoginForm.jsx";
 import { loginService } from "../services/authService.js";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
