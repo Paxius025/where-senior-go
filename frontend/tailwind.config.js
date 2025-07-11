@@ -1,4 +1,3 @@
-// tailwind.config.js
 export default {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
@@ -7,12 +6,20 @@ export default {
   theme: {
     extend: {},
     screens: {
-      'sm': '640px',   // Small devices (landscape phones)
-      'md': '768px',   // Medium devices (tablets)
-      'lg': '1024px',  // Large devices (desktops)
-      'xl': '1280px',  // Extra large devices (large desktops)
-      '2xl': '1536px', // 2X Extra large devices (larger desktops)
+      // ✅ Min-width breakpoints (default Tailwind)
+      'sm': '640px',
+      'md': '768px',
+      'lg': '1024px',
+      'xl': '1280px',
+      '2xl': '1536px',
+
+      // ✅ Max-width breakpoints (custom added)
+      'max-sm': { max: '639px' },
+      'max-md': { max: '767px' },
+      'max-lg': { max: '1023px' },
+      'max-xl': { max: '1279px' },
+      'max-2xl': { max: '1535px' },
     },
   },
   plugins: [],
-};
+}
