@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../styles/style.css";
+import "../../styles/style.css";
 import { Link } from "react-router-dom";
 import { IoIosCheckmarkCircle } from "react-icons/io";
 
@@ -10,6 +10,7 @@ export default function RegisterForm({ onSubmit }) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(null);
+
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
@@ -173,3 +174,4 @@ export default function RegisterForm({ onSubmit }) {
     </>
   );
 }
+

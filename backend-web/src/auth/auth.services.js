@@ -1,4 +1,3 @@
-import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import pool from "../database/db.js";
 import dotenv from "dotenv";

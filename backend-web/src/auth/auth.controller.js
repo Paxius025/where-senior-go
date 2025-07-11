@@ -1,15 +1,6 @@
-import jwt from "jsonwebtoken";
 import { loginService, registerService } from "./auth.services.js";
 import dotenv from "dotenv";
 dotenv.config();
-
-function generateToken(user) {
-  return jwt.sign(
-    { userId: user.userId, email: user.email, username: user.username },
-    process.env.JWT_SECRET_KEY,
-    { expiresIn: "1h" }
-  );
-}
 
 const loginController = async (req, res, next) => {
   try {
@@ -25,9 +16,8 @@ const loginController = async (req, res, next) => {
       email: user.email,
     };
 
-    const token = generateToken(user);
 
-    res.status(200).json({ token });
+    res.status(200).json({ userId: user.user_id, username: user.username, email: user.email });
   } catch (error) {
     next(error);
   }
@@ -38,6 +28,11 @@ const registerController = async (req, res, next) => {
     const { email, username, password } = req.body;
     const userId = await registerService(email, username, password);
 
+    req.session.user = {
+      userId,
+      username,
+      email,
+    };
     req.session.userId = userId;
 
     res.status(201).json({ userId });
@@ -47,7 +42,7 @@ const registerController = async (req, res, next) => {
 };
 
 const checkSessionController = (req, res, next) => {
-  if (req.session?.user) {
+  if (req.session?.user?.userId) {
     res.json({ valid: true });
   } else {
     res.status(401).json({ error: "Not authenticated" });

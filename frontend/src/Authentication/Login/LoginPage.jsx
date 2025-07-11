@@ -1,9 +1,10 @@
 import React from "react";
-import LoginForm from "../components/LoginForm.jsx";
+import LoginForm from "./LoginForm.jsx";
 import { loginService } from "../services/authService.js";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { IoArrowBack } from "react-icons/io5";
+import Swal from "sweetalert2";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -11,7 +12,12 @@ export default function LoginPage() {
   const handleLogin = async ({ emailOrUsername, password }) => {
     try {
       await loginService({ emailOrUsername, password });
-      alert("Login successful!");
+      Swal.fire({
+        icon: "success",
+        title: "เข้าสู่ระบบสำเร็จ",
+        text: "ยินดีต้อนรับกลับ!",
+        timer: 500,
+      });
       navigate("/");
     } catch (error) {
       alert("Login failed: " + error.message);

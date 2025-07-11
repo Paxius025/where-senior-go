@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import pkg from 'pg';
 
-dotenv.config();
+dotenv.config({ override: true });
 
 const pool = new pkg.Pool({
   host: process.env.DATABASE_HOST,
