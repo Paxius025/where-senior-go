@@ -1,6 +1,6 @@
-import {  getMajorsFromFacultyIdServices } from "./majors.services.js";
+import { getMajorsFromFacultyIdServices } from "./majors.services.js";
 
-const getMajorsFromFacultyIdController = async (req, res) => {
+const getMajorsFromFacultyIdController = async (req, res, next) => {
   const faculty_id = parseInt(req.query.faculty_id, 10);
   if (isNaN(faculty_id)) {
     return res.status(400).json({ error: "Invalid faculty ID" });
@@ -13,8 +13,8 @@ const getMajorsFromFacultyIdController = async (req, res) => {
     if (error.message === "Faculty not found") {
       return res.status(404).json({ error: error.message });
     }
-    res.status(500).json({ error: error.message });
+    next(error);
   }
-}
+};
 
 export { getMajorsFromFacultyIdController };

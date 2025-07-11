@@ -1,10 +1,10 @@
 import { healthCheck } from "./database.services.js";
-export const healthCheckController = async (req, res) => {
+export const healthCheckController = async (req, res, next) => {
     try {
         const result = await healthCheck();
         res.status(200).json({ message: "Database connection is healthy" });
     } catch (error) {
         console.error("Health check failed:", error);
-        res.status(500).json({ error: "Database connection is not healthy" });
+        next(error);
     }
 };
