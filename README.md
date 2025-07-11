@@ -9,8 +9,10 @@
 
 1. เปิดเทอร์มินัลในโฟลเดอร์โปรเจกต์
 2. สร้างและเริ่มต้นคอนเทนเนอร์ทั้งหมดด้วยคำสั่ง:
-
+    
     ```bash
+    docker pull python:3.10-slim
+    docker pull node:20.12.2-alpine
     docker-compose --env-file .env up --build
     ```
 

@@ -12,8 +12,8 @@ export default function LoginPage() {
     try {
       await loginService({ emailOrUsername, password });
       alert("Login successful!");
-      navigate("/dashboard");
-    } catch (error) {
+      navigate("/");
+    }catch (error) {
       alert("Login failed: " + error.message);
     }
   };
