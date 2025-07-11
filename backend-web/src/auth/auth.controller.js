@@ -38,6 +38,11 @@ const registerController = async (req, res, next) => {
     const { email, username, password } = req.body;
     const userId = await registerService(email, username, password);
 
+    req.session.user = {
+      userId,
+      username,
+      email,
+    };
     req.session.userId = userId;
 
     res.status(201).json({ userId });
