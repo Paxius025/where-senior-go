@@ -4,15 +4,18 @@ import RegisterForm from "../components/RegisterForm.jsx";
 import { registerService } from "../services/authService.js";
 import { Link } from "react-router-dom";
 import { IoArrowBack } from "react-icons/io5";
-
+import Swal from "sweetalert2";
 export default function RegisterPage() {
   const navigate = useNavigate();
 
   const handleRegister = async ({ email, username, password }) => {
     await registerService({ email, username, password });
-
-    // Redirect to dashboard page after successful registration
-    alert("Registration successful!");
+    Swal.fire({
+      icon: "success",
+      title: "ลงทะเบียนสำเร็จ",
+      text: "คุณได้ลงทะเบียนสำเร็จแล้ว!",
+      timer: 500,
+    });
     navigate("/");
   };
 

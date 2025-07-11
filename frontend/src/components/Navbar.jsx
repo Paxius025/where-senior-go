@@ -1,17 +1,28 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { logoutService } from "../services/authService";
+import Swal from "sweetalert2";
+
 export default function Navbar() {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
-    try {
-      await logoutService();
-      sessionStorage.removeItem("token");
-      navigate("/login");
-    } catch (error) {
-      console.error("Error logging out:", error);
-    }
+    Swal.fire({
+      title: "ออกจากระบบ...",
+      text: "กรุณายืนยันการออกจากระบบ",
+      icon: "warning",
+      showCancelButton: true,
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await logoutService();
+          sessionStorage.removeItem("token");
+          navigate("/login");
+        } catch (error) {
+          console.error("Error logging out:", error);
+        }
+      }
+    });
   };
 
   return (
