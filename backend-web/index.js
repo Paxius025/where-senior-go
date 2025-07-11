@@ -24,6 +24,7 @@ app.use(session({
   cookie: { 
     secure: false, 
     maxAge: 1000 * 60 * 60 * 1 }, // 1 hour
+    sameSite: 'lax',
 }));
 
 app.get("/", (req, res) => {
