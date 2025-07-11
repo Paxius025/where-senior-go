@@ -1,6 +1,6 @@
-import { getAllFacultiesServices, getFacultyByIdServices } from "./faculties.services.js";
+import { getAllFacultiesServices, getMajorsFromFacultyIdServices } from "./faculties.services.js";
 
-const getAllFacultiesController = async (req, res) => {
+const getFacultyByIdController = async (req, res) => {
   try {
     const faculties = await getAllFacultiesServices();
     res.status(200).json(faculties);
@@ -9,14 +9,14 @@ const getAllFacultiesController = async (req, res) => {
   }
 }
 
-const getFacultyByIdController = async (req, res) => {
-  const facultyId = parseInt(req.params.id, 10);
-  if (isNaN(facultyId)) {
+const getMajorsFromFacultyIdController = async (req, res) => {
+  const faculty_id = parseInt(req.params.id, 10);
+  if (isNaN(faculty_id)) {
     return res.status(400).json({ error: "Invalid faculty ID" });
   }
 
   try {
-    const faculty = await getFacultyByIdServices(facultyId);
+    const faculty = await getMajorsFromFacultyIdServices(faculty_id);
     res.status(200).json(faculty);
   } catch (error) {
     if (error.message === "Faculty not found") {
@@ -26,4 +26,4 @@ const getFacultyByIdController = async (req, res) => {
   }
 }
 
-export { getAllFacultiesController, getFacultyByIdController };
+export { getFacultyByIdController, getMajorsFromFacultyIdController };
