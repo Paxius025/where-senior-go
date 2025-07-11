@@ -2,11 +2,16 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { logoutService, checkSession } from "../Authentication/services/authService.js";
 import Swal from "sweetalert2";
-
+import SearchBox from "./SearchBox.jsx";
 export default function Navbar() {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  const [query, setQuery] = useState("");
+
+  const handleChange = (e) => {
+    setQuery(e.target.value);
+  };
   useEffect(() => {
     const verifySession = async () => {
       try {
@@ -62,7 +67,9 @@ export default function Navbar() {
       <div className="text-lg font-semibold cursor-pointer" onClick={() => navigate("/")}>
         WhereSeniorGo
       </div>
-
+        <div className="flex-1 max-w-md mx-8">
+        <SearchBox placeholder="ค้นหา..." value={query} onChange={handleChange} />
+        </div>
       <div className="space-x-4">
         {!isLoggedIn && (
           <button
@@ -72,6 +79,7 @@ export default function Navbar() {
             เข้าสู่ระบบ
           </button>
         )}
+
 
         {isLoggedIn && (
           <>
