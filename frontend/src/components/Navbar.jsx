@@ -86,7 +86,7 @@ export default function Navbar() {
               onClick={() => handleNavigateSecure("/add-company")}
               className="bg-white text-blue-600 font-medium px-4 py-2 rounded hover:bg-gray-100 transition"
             >
-              Add Company Profile
+              Add Company
             </button>
 
             <button
@@ -94,6 +94,13 @@ export default function Navbar() {
               className="bg-white text-blue-600 font-medium px-4 py-2 rounded hover:bg-gray-100 transition"
             >
               คู่มือ
+            </button>
+            
+            <button
+              onClick={() => handleNavigateSecure("/profile")}
+              className="bg-white text-blue-600 font-medium px-4 py-2 rounded hover:bg-gray-100 transition"
+            >
+              โปรไฟล์
             </button>
 
             <button
