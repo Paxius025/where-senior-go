@@ -19,7 +19,7 @@ export default function RegisterPage() {
   return (
     <div>
       <p className="text-blue-500 text-3xl absolute z-50 p-2">
-        <Link to='/dashboard'><IoArrowBack /></Link>
+        <Link to='/'><IoArrowBack /></Link>
       </p>
       <RegisterForm onSubmit={handleRegister} />
         <p>

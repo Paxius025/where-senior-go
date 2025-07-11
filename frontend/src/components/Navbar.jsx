@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { logoutService } from "../services/authService";
-export default function Navbar() {
+export default function Navbar({isAuthenticated, onLoginClick}) {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -14,15 +14,36 @@ export default function Navbar() {
     }
   };
 
+  const handleProtectedAction = (action) => {
+    if (!isAuthenticated) {
+      onLoginClick();
+    } else {
+      action();
+    }
+  };
+
   return (
     <nav className="bg-blue-600 text-white px-4 py-3 flex justify-between items-center">
       <div className="text-lg font-semibold">MyApp</div>
-      <button
-        onClick={handleLogout}
-        className="bg-white text-blue-600 font-medium px-4 py-2 rounded hover:bg-gray-100 transition"
-      >
-        Logout
-      </button>
+      <div className="flex gap-4">
+        {isAuthenticated ? (
+          <>
+            <button
+              onClick={() => handleProtectedAction(() => navigate("/profile"))}
+              className="hover:underline"
+            >
+              Profile
+            </button>
+            <button onClick={handleLogout} className="hover:underline">
+              Logout
+            </button>
+          </>
+        ) : (
+          <button onClick={onLoginClick} className="hover:underline">
+            Login
+          </button>
+        )}
+      </div>
     </nav>
   );
 }
