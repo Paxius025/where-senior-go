@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "../styles/style.css";
 import { Link } from "react-router-dom";
 import { IoIosCheckmarkCircle } from "react-icons/io";
-import { checkSession } from "../services/authService";
-import { useNavigate } from "react-router-dom";
+;
 
 export default function RegisterForm({ onSubmit }) {
   const [email, setEmail] = useState("");
@@ -12,23 +11,6 @@ export default function RegisterForm({ onSubmit }) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(null);
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const verifyLogin = async () => {
-      try {
-        const response = await checkSession();
-        if (response.valid) {
-          navigate("/", { replace: true }); 
-        }
-      } catch (err) {
-        console.error("Error checking session:", err);
-        
-      }
-    };
-    verifyLogin();
-  }, [navigate]);
 
 
   const togglePasswordVisibility = () => {

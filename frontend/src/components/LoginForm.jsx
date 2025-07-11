@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { checkSession } from "../services/authService";
+import React, { useState } from "react";
 import "../styles/style.css";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 
 export default function LoginForm({ onSubmit }) {
   const [emailOrUsername, setEmailOrUsername] = useState("");
@@ -18,23 +16,6 @@ export default function LoginForm({ onSubmit }) {
       setError(err.message || "Login failed");
     }
   };
-
-    const navigate = useNavigate();
-
-  useEffect(() => {
-    const verifyLogin = async () => {
-      try {
-        const response = await checkSession();
-        if (response.valid) {
-          navigate("/", { replace: true }); 
-        }
-      } catch (err) {
-        console.error("Error checking session:", err);
-      }
-    };
-    verifyLogin();
-  }, [navigate]);
-
 
   return (
     <>
