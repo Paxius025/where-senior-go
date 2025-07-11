@@ -60,7 +60,7 @@ export default function Navbar() {
   return (
     <nav className="bg-blue-600 text-white px-4 py-3 flex justify-between items-center">
       <div className="text-lg font-semibold cursor-pointer" onClick={() => navigate("/")}>
-        MyApp
+        WhereSeniorGo
       </div>
 
       <div className="space-x-4">
@@ -69,7 +69,7 @@ export default function Navbar() {
             onClick={() => navigate("/login")}
             className="bg-white text-blue-600 font-medium px-4 py-2 rounded hover:bg-gray-100 transition"
           >
-            Login
+            เข้าสู่ระบบ
           </button>
         )}
 
@@ -79,14 +79,14 @@ export default function Navbar() {
               onClick={() => handleNavigateSecure("/reviews")}
               className="bg-white text-blue-600 font-medium px-4 py-2 rounded hover:bg-gray-100 transition"
             >
-              Review Rating
+              อ่านรีวิว
             </button>
 
             <button
-              onClick={() => handleNavigateSecure("/add-company")}
+              onClick={() => handleNavigateSecure("/company")}
               className="bg-white text-blue-600 font-medium px-4 py-2 rounded hover:bg-gray-100 transition"
             >
-              Add Company
+              บริษัท
             </button>
 
             <button
@@ -107,7 +107,7 @@ export default function Navbar() {
               onClick={handleLogout}
               className="bg-white text-blue-600 font-medium px-4 py-2 rounded hover:bg-gray-100 transition"
             >
-              Logout
+              ออกจากระบบ
             </button>
           </>
         )}
