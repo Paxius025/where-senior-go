@@ -47,7 +47,7 @@ const registerController = async (req, res, next) => {
 };
 
 const checkSessionController = (req, res, next) => {
-  if (req.session?.userId) {
+  if (req.session?.user) {
     res.json({ valid: true });
   } else {
     res.status(401).json({ error: "Not authenticated" });

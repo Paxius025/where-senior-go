@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import RegisterPage from "./pages/RegisterPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";  
 import DashboardPage from "./pages/DashboardPage";
-import UserProfilePage from './pages/UserProfilePage.jsx';
 
 function App() {
 
@@ -12,7 +11,6 @@ function App() {
       <BrowserRouter>
         <div className="App">
           <Routes>
-            <Route path="/profile" element={<UserProfilePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/" element={<DashboardPage />} />
