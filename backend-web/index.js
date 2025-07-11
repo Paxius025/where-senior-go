@@ -6,7 +6,8 @@ import authRoutes from "./src/auth/auth.route.js";
 import databaseRoutes from "./src/database/database.routes.js";
 
 import facultiesRouter from "./src/faculties/faculties.routes.js";
-
+import majorsRouter from "./src/majors/majors.routes.js";
+import usersProfileRouter from "./src/users/user.routes.js";
 import session from "express-session";
 
 dotenv.config({ quiet: true });
@@ -37,7 +38,11 @@ app.use("/api/auth", authRoutes);
 
 app.use("/api/faculties", facultiesRouter);
 
+app.use("/api/majors", majorsRouter);
+
 app.use("/api/database", databaseRoutes);
+
+app.use("/api/users", usersProfileRouter);
 
 app.use(errorHandler);
 
