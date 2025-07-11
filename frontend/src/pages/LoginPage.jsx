@@ -20,7 +20,7 @@ export default function LoginPage() {
 
   return (
     <div>
-      <p className="text-blue-500 text-3xl absolute z-50 px-2 py-2 max-sm:px-6 max-sm:py-10 max-md:px-8 max-md:py-10 max-lg:px-8 max-lg:py-10">
+      <p className="text-blue-500 text-3xl absolute z-50 px-2 py-2 max-sm:px-3 max-sm:py-4 max-md:px-9 max-md:py-16 max-lg:px-8 max-lg:py-15">
         <Link to="/">
           <IoArrowBack />
         </Link>
