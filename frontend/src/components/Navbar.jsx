@@ -10,16 +10,19 @@ export default function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [, setRole] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
 
   useEffect(() => {
     const verifySession = async () => {
       try {
-        await checkSession();
+        const session = await checkSession();
         setIsLoggedIn(true);
+        setRole(session.role);
       } catch {
         setIsLoggedIn(false);
+        setRole("");
       }
     };
 
