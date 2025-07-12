@@ -134,7 +134,7 @@ export default function Navbar() {
 
       <div className="flex items-center justify-center">
         <div className="flex-1 max-w-md mx-8">
-          <div className="relative">
+          <div className="relative hover:scale-110 hover:duration-200">
             <SearchBox
               placeholder="Search"
               value={query}
@@ -176,7 +176,8 @@ export default function Navbar() {
           {!isLoggedIn && (
             <button
               onClick={() => navigate("/login")}
-              className="cursor-pointer bg-white text-blue-500 font-medium px-3.5 py-1.5 rounded hover:bg-gray-100 transition"
+              className="cursor-pointer bg-white text-blue-500 font-medium px-3.5 py-1.5 rounded 
+              hover:scale-110 hover:duration-200 transition"
             >
               เข้าสู่ระบบ
             </button>
