@@ -22,8 +22,7 @@ const ProfilePage = () => {
   return (
     <>
      <Navbar />
-    <div className="p-4">
-      <h1 className="text-2xl font-semibold mb-4">โปรไฟล์</h1>
+    <div className="bg-gray-100">
       <ProfileForm user={user} />
     </div>
     </>
