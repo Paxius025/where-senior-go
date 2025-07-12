@@ -1,21 +1,27 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { updateUserProfile } from "./userProfileServices.js";
 import FacultySelect from "./FacultySelect.jsx";
 import MajorSelect from "./MajorSelect.jsx";
+import {
+  checkSession,
+} from "../Authentication/services/authService.js";
 
 const ProfileForm = ({ user }) => {
   const [formData, setFormData] = useState({
-    username: user.username || "",
-    email: user.email || "",
+    username: user.username ,
+    email: user.email ,
     contact: user.contact || "",
     ku_year: user.ku_year || "",
     faculty_id: user.faculty_id || "",
     faculty_name: user.faculty_name || "",
     major_id: user.major_id || "",
     major_name: user.major_name || "",
+    role: user.role || "",
   });
 
-  console.log("Initial formData:", formData);
+  const [role, setRole] = useState(user.role || ""); // Initialize role from user data
+ 
+  const [, setIsLoggedIn] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,8 +29,27 @@ const ProfileForm = ({ user }) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  useEffect(() => {
+    const verifySession = async () => {
+      try {
+        const session = await checkSession();
+        setIsLoggedIn(true);
+        setRole(session.role);
+        setFormData((prev) => ({ ...prev, role: session.role ?? "" }));
+        console.log("Session role:", session.role);
+      } catch {
+        setIsLoggedIn(false);
+        setRole("");
+      }
+    };
+
+    verifySession();
+  }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!role) return alert("กรุณาเลือกบทบาท");
+  
     try {
       await updateUserProfile(formData);
       alert("อัปเดตโปรไฟล์สำเร็จ");
@@ -71,12 +96,12 @@ const ProfileForm = ({ user }) => {
               onSubmit={handleSubmit}
               className="max-w-5xl mx-auto bg-white rounded-r-xl  shadow-xl p-8 space-y-6"
             >
-              <div className="text-center mb-6">
+              {/* <div className="text-center mb-6">
                 <h2 className="text-2xl font-bold text-gray-800 mb-2">
                   ลงทะเบียนนักศึกษา
                 </h2>
                 <p className="text-gray-600">กรอกข้อมูลส่วนตัวของท่าน</p>
-              </div>
+              </div> */}
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -130,6 +155,26 @@ const ProfileForm = ({ user }) => {
                 />
               </div>
 
+              <div className="mb-4"></div>
+                  <label className="block mb-1 font-semibold text-gray-700">
+                      นิสิต / รุ่นพี่
+                  </label>
+                  <select
+                    value={role}
+                    onChange={(e) => {
+    setRole(e.target.value);
+    setFormData((prev) => ({ ...prev, role: e.target.value })); // ✅ sync เข้า formData ทันที
+  }} 
+                    
+                    required
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
+                    <option value="" disabled>
+                      เลือกบทบาท
+                    </option>
+                    <option value="nisit">นิสิต</option>
+                    <option value="senior">รุ่นพี่</option>
+                  </select>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   คณะ
@@ -170,12 +215,11 @@ const ProfileForm = ({ user }) => {
                   type="button"
                   onClick={() =>
                     setFormData({
-                      username: "",
-                      email: "",
                       contact: "",
                       ku_year: "",
                       faculty_id: "",
                       major_id: "",
+                      role: "",
                     })
                   }
                   className="cursor-pointer flex-1 bg-white hover:from-gray-600 hover:to-gray-700 text-blue-500 font-semibold py-3 px-6 rounded-xl

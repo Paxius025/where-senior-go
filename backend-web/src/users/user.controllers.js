@@ -13,8 +13,16 @@ const getUserProfileController = async (req, res, next) => {
 const updateUserProfileController = async (req, res, next) => {
   try {
     const userId = req.session.user.userId;
-    const { username, email, contact, ku_year, major_id, faculty_id } = req.body;
-    const updatedUser = await updateUserProfileService(userId, username, email, contact, ku_year, major_id, faculty_id);
+    const { username, email, contact, ku_year, major_id, faculty_id, role } = req.body;
+    const updatedUser = await updateUserProfileService(userId, username, email, contact, ku_year, major_id, faculty_id, role);
+    
+    // Update session with new user data
+    req.session.user = {
+      userId: updatedUser.user_id,
+      username: updatedUser.username,
+      email: updatedUser.email,
+      role: updatedUser.role,
+    };
     res.status(200).json(updatedUser);
   } catch (error) {
     next(error);
