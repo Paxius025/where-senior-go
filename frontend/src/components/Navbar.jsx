@@ -12,6 +12,7 @@ export default function Navbar() {
   const location = useLocation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [query, setQuery] = useState("");
+  const [role, setRole] = useState("");
 
   const handleChange = (e) => {
     setQuery(e.target.value);
@@ -20,10 +21,12 @@ export default function Navbar() {
   useEffect(() => {
     const verifySession = async () => {
       try {
-        await checkSession();
+        const session = await checkSession();
         setIsLoggedIn(true);
+        setRole(session.role);
       } catch {
         setIsLoggedIn(false);
+        setRole("");
       }
     };
 
@@ -107,12 +110,14 @@ export default function Navbar() {
                 Review
               </button>
 
-              <button
-                onClick={() => handleNavigateSecure("/company")}
-                className={getButtonStyle("/company")}
-              >
-                Company
-              </button>
+              {role === "senior" && (
+                <button
+                  onClick={() => handleNavigateSecure("/company")}
+                  className={getButtonStyle("/company")}
+                >
+                  Company
+                </button>
+              )}
 
               <button
                 onClick={() => handleNavigateSecure("/manual")}

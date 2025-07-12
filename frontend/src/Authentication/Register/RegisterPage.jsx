@@ -8,8 +8,8 @@ import Swal from "sweetalert2";
 export default function RegisterPage() {
   const navigate = useNavigate();
 
-  const handleRegister = async ({ email, username, password }) => {
-    await registerService({ email, username, password });
+  const handleRegister = async ({ email, username, password, role }) => {
+    await registerService({ email, username, password, role });
     Swal.fire({
       icon: "success",
       title: "ลงทะเบียนสำเร็จ",

@@ -1,6 +1,6 @@
 import { loginService, registerService } from "./auth.services.js";
 import dotenv from "dotenv";
-dotenv.config();
+dotenv.config({ quiet: true });
 
 const loginController = async (req, res, next) => {
   try {
@@ -14,10 +14,11 @@ const loginController = async (req, res, next) => {
       userId: user.user_id,
       username: user.username,
       email: user.email,
+      role: user.role,
     };
 
 
-    res.status(200).json({ userId: user.user_id, username: user.username, email: user.email });
+    res.status(200).json({ userId: user.user_id, username: user.username, email: user.email, role: user.role });
   } catch (error) {
     next(error);
   }
@@ -25,17 +26,19 @@ const loginController = async (req, res, next) => {
 
 const registerController = async (req, res, next) => {
   try {
-    const { email, username, password } = req.body;
-    const userId = await registerService(email, username, password);
+    const { email, username, password, role } = req.body;
+    const user = await registerService(email, username, password, role);
 
     req.session.user = {
-      userId,
-      username,
-      email,
+      userId: user.user_id,
+      username: user.username,
+      email: user.email,
+      role: user.role,
     };
-    req.session.userId = userId;
 
-    res.status(201).json({ userId });
+    req.session.userId = user.userId;
+
+    res.status(201).json({ userId: user.user_id, username: user.username, email: user.email, role: user.role });
   } catch (error) {
     next(error);
   }
@@ -43,7 +46,13 @@ const registerController = async (req, res, next) => {
 
 const checkSessionController = (req, res, next) => {
   if (req.session?.user?.userId) {
-    res.json({ valid: true });
+    res.json({
+      valid: true,
+      userId: req.session.user.userId,
+      username: req.session.user.username,
+      email: req.session.user.email,
+      role: req.session.user.role,
+    });
   } else {
     res.status(401).json({ error: "Not authenticated" });
   }

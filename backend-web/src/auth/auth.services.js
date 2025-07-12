@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const registerService = async (email, username, password) => {
+const registerService = async (email, username, password, role) => {
   const hashedPassword = await bcrypt.hash(password, 10);
   const client = await pool.connect();
   try {
@@ -27,13 +27,13 @@ const registerService = async (email, username, password) => {
     }
 
     const result = await client.query(
-      "INSERT INTO users (email, username, password_hash) VALUES ($1, $2, $3) RETURNING user_id",
-      [email, username, hashedPassword]
+      "INSERT INTO users (email, username, password_hash, role) VALUES ($1, $2, $3, $4) RETURNING user_id",
+      [email, username, hashedPassword, role]
     );
 
     const user = result.rows[0];
-
-    return user.user_id;
+    console.log(user)
+    return user;
   } finally {
     client.release();
   }
@@ -43,7 +43,7 @@ const loginService = async (usernameOrEmail, password) => {
   const client = await pool.connect();
   try {
     const userExists = await client.query(
-      "SELECT user_id,email, username, password_hash FROM users WHERE email = $1 OR username = $1",
+      "SELECT user_id,email, username, password_hash, role FROM users WHERE email = $1 OR username = $1",
       [usernameOrEmail]
     );
 

@@ -7,6 +7,7 @@ export default function RegisterForm({ onSubmit }) {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(null);
@@ -20,6 +21,7 @@ export default function RegisterForm({ onSubmit }) {
     password && confirmPassword && password === confirmPassword;
 
   const handleSubmit = async (e) => {
+    setRole(e.target.value)
     e.preventDefault();
     setError(null);
 
@@ -29,7 +31,7 @@ export default function RegisterForm({ onSubmit }) {
     }
 
     try {
-      await onSubmit({ email, username, password });
+      await onSubmit({ email, username, password, role });
     } catch (err) {
       setError(err.message || "Registration failed");
     }
@@ -102,6 +104,23 @@ export default function RegisterForm({ onSubmit }) {
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
+
+                <div className="mb-4"></div>
+                  <label className="block mb-1 font-semibold text-gray-700">
+                    Role:
+                  </label>
+                  <select
+                    value={role}
+                    onChange={(e) => setRole(e.target.value)}
+                    required
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
+                    <option value="" disabled>
+                      เลือกบทบาทของคุณ
+                    </option>
+                    <option value="nisit">นักศึกษา</option>
+                    <option value="senior">รุ่นพี่</option>
+                  </select>
 
                 <div className="mb-4">
                   <label className="block mb-1 font-semibold text-gray-700">

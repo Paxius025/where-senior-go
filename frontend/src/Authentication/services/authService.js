@@ -1,13 +1,13 @@
 const API_BASE = "http://localhost:3000/api";
 
-async function registerService({ email, username, password }) {
+async function registerService({ email, username, password, role }) {
   const res = await fetch(`${API_BASE}/auth/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     credentials: "include", 
-    body: JSON.stringify({ email, username, password }),
+    body: JSON.stringify({ email, username, password, role }),
   });
 
   if (!res.ok) {
