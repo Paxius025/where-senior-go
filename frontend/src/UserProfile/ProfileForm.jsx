@@ -30,7 +30,6 @@ const ProfileForm = ({ user }) => {
   });
 
   const [role, setRole] = useState(user.role || ""); // Initialize role from user data
-
   const [, setIsLoggedIn] = useState(false);
 
   const handleChange = (e) => {

@@ -13,7 +13,6 @@ export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [query, setQuery] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [, setRole] = useState("");
 
   const handleChange = (e) => {
     setQuery(e.target.value);
@@ -22,12 +21,10 @@ export default function Navbar() {
   useEffect(() => {
     const verifySession = async () => {
       try {
-        const session = await checkSession();
+        await checkSession();
         setIsLoggedIn(true);
-        setRole(session.role);
       } catch {
         setIsLoggedIn(false);
-        setRole("");
       }
     };
 
