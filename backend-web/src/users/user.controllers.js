@@ -14,7 +14,6 @@ const updateUserProfileController = async (req, res, next) => {
   try {
     const userId = req.session.user.userId;
     const { username, email, contact, ku_year, major_id, faculty_id, role } = req.body;
-    console.log("Update Profile contoller:" ,role)
     const updatedUser = await updateUserProfileService(userId, username, email, contact, ku_year, major_id, faculty_id, role);
     
     // Update session with new user data
