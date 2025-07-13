@@ -13,7 +13,7 @@ const getReviews = async (options = {}) => {
         r.advice,
         u.username,
         p.title AS position_title, 
-        c.name AS company_name    
+        c.name AS company_name
       FROM reviews r
       JOIN users u ON r.user_id = u.user_id
       JOIN positions p ON r.position_id = p.position_id
@@ -22,17 +22,15 @@ const getReviews = async (options = {}) => {
     const params = [];
     let whereClause = '';
 
-    if (options.companyId) {
-      whereClause = ' WHERE c.company_id = $1';
-      params.push(options.companyId);
-    } else if (options.positionId) {
-      whereClause = ' WHERE r.position_id = $1';
-      params.push(options.positionId);
+    if (options.positionId && options.companyId) {
+      whereClause = ' WHERE r.position_id = $1 AND c.company_id = $2';
+      params.push(options.positionId, options.companyId);
     }
 
     query += whereClause + ' ORDER BY r.rating DESC;';
 
     const result = await pool.query(query, params);
+
     return result.rows;
   } catch (error) {
     console.error("Error fetching reviews:", error);
@@ -44,24 +42,16 @@ const getAllReviewsServices = async () => {
   return getReviews();
 };
 
-// get review by Company ID
-const getReviewsByCompanyIdServices = async (companyId) => {
-  if (!companyId) {
-    throw new Error("Company ID is required.");
+// get review by Company ID and Position ID : For company page
+// This is used to fetch reviews for a specific company and position
+const getReviewsByCompanyAndPositionIdServices = async (companyId, positionId) => {
+  if (!companyId || !positionId) {
+    throw new Error("Both Company ID and Position ID are required.");
   }
-  return getReviews({ companyId });
-};
-
-// get review by Position ID
-const getReviewsByPositionIdServices = async (positionId) => {
-  if (!positionId) {
-    throw new Error("Position ID is required.");
-  }
-  return getReviews({ positionId });
+  return getReviews({ companyId, positionId });
 };
 
 export {
   getAllReviewsServices,
-  getReviewsByCompanyIdServices,
-  getReviewsByPositionIdServices,
+  getReviewsByCompanyAndPositionIdServices
 };

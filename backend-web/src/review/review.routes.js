@@ -1,10 +1,10 @@
-import { getAllReviewsController, getReviewsByCompanyIdController, getReviewsByPositionIdController } from './review.controller.js';
+import { getAllReviewsController, getReviewsByCompanyAndPositionIdController } from './review.controller.js';
 
 import express from "express";
 const reviewRouter = express.Router();
 
-reviewRouter.get("/company", getReviewsByCompanyIdController);
-reviewRouter.get("/position", getReviewsByPositionIdController);
+
 reviewRouter.get("/", getAllReviewsController);
+reviewRouter.get("/by-company-and-position", getReviewsByCompanyAndPositionIdController);
 
 export default reviewRouter;

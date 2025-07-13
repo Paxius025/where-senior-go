@@ -10,6 +10,7 @@ import ReviewPage from "./Review/ReviewPage.jsx";
 import RegisterProfile from "./UserProfile/RegisterProfilePage.jsx";
 import CompanyPositionList from './Company/CompanyPositionList.jsx';
 import CompanyList from './Company/CompanyList.jsx';
+import ReviewPositionPage from "./Company/ReviewPositionPage.jsx";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route path="/reviews" element={<ReviewPage />} />
             <Route path="/registerProfile" element={<RegisterProfile />} />
             <Route path="/company/:companyId/positions" element={<CompanyPositionList />} />
+            <Route path="/company/:companyId/position/:positionId/reviews" element={<ReviewPositionPage />} />
             <Route path="*" element={<h1>404 Not Found</h1>} />
           </Routes>
         </div>

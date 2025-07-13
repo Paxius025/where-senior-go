@@ -16,4 +16,12 @@ const fetchAllPositionsInCompany = async (companyId, offset = 0, limit = 10) => 
   return response.data;
 };
 
-export { fetchAllCompanies, fetchAllPositionsInCompany };
+const fetchReviewsByCompanyAndPosition = async (companyId, positionId) => {
+  const response = await axios.get("http://localhost:3000/api/reviews/by-company-and-position", {
+    params: { company_id: companyId, position_id: positionId },
+    withCredentials: true, 
+  });
+  return response.data;
+};
+
+export { fetchAllCompanies, fetchAllPositionsInCompany, fetchReviewsByCompanyAndPosition };

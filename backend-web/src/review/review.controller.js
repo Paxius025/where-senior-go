@@ -1,4 +1,7 @@
-import  { getAllReviewsServices, getReviewsByCompanyIdServices, getReviewsByPositionIdServices } from './review.services.js';
+import {
+  getAllReviewsServices,
+  getReviewsByCompanyAndPositionIdServices,
+} from "./review.services.js";
 
 const getAllReviewsController = async (req, res, next) => {
   try {
@@ -7,26 +10,19 @@ const getAllReviewsController = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-}
+};
 
-const getReviewsByCompanyIdController = async (req, res, next) => {
-  const { company_id } = req.body;
+const getReviewsByCompanyAndPositionIdController = async (req, res, next) => {
+  const { company_id, position_id } = req.query;
   try {
-    const reviews = await getReviewsByCompanyIdServices(company_id);
+    const reviews = await getReviewsByCompanyAndPositionIdServices(
+      company_id,
+      position_id
+    );
     res.status(200).json(reviews);
   } catch (error) {
     next(error);
   }
-}
+};
 
-const getReviewsByPositionIdController = async (req, res, next) => {
-  const { position_id } = req.body;
-  try {
-    const reviews = await getReviewsByPositionIdServices(position_id);
-    res.status(200).json(reviews);
-  } catch (error) {
-    next(error);
-  }
-}
-
-export { getAllReviewsController, getReviewsByCompanyIdController, getReviewsByPositionIdController };
+export { getAllReviewsController, getReviewsByCompanyAndPositionIdController };
