@@ -1,6 +1,7 @@
 import {
   getAllCompaniesServices,
   getTopFiveCompaniesServices,
+  getLatestFiveCompaniesServices
 } from "./companies.services.js";
 
 const getAllCompaniesController = async (req, res, next) => {
