@@ -9,6 +9,7 @@ import facultiesRouter from "./src/faculties/faculties.routes.js";
 import majorsRouter from "./src/majors/majors.routes.js";
 import usersProfileRouter from "./src/users/user.routes.js";
 import companiesRouter from "./src/company/companies.routes.js";  
+import positionsRouter from "./src/jobs/positions.routes.js";
 
 import session from "express-session";
 
@@ -47,6 +48,8 @@ app.use("/api/database", databaseRoutes);
 app.use("/api/users", usersProfileRouter);
 
 app.use("/api/companies", companiesRouter);
+
+app.use("/api/positions", positionsRouter);
 
 app.use(errorHandler);
 
