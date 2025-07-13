@@ -5,6 +5,7 @@ import { checkSession } from "../Authentication/services/authService.js";
 import Footer from "../components/Footer.jsx";
 import Article from "../components/Article.jsx";
 import Header from "../components/Header.jsx";
+import TopCompanies from "./dashboardComponents/TopCompanies.jsx";
 
 export default function DashboardPage() {
   const navigate = useNavigate();
@@ -48,11 +49,13 @@ export default function DashboardPage() {
           ข้อมูลคร่าวๆ สามารถดูได้โดยไม่ต้องล็อกอิน
         </p>
 
+        <TopCompanies/>
+
         <button
           onClick={handleClickSecureAction}
           className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
         >
-          ปุ่มที่ต้องล็อกอินก่อนกด
+          ดูรายละเอียดบริษัทเพิ่มเติม
         </button>
       </div>
 

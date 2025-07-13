@@ -12,8 +12,8 @@ export default function Navbar() {
   const location = useLocation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [query, setQuery] = useState("");
-  const [role, setRole] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [, setRole] = useState("");
 
   const handleChange = (e) => {
     setQuery(e.target.value);
@@ -139,14 +139,12 @@ export default function Navbar() {
                 Review
               </button>
 
-              {role === "senior" && (
                 <button
                   onClick={() => handleNavigateSecure("/company")}
                   className={getButtonStyle("/company")}
                 >
                   Company
                 </button>
-              )}
 
               <button
                 onClick={() => handleNavigateSecure("/manual")}
