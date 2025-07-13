@@ -46,7 +46,7 @@ const CompanyPositionList = () => {
     <>
       <Navbar />
       <div className="p-4">
-        <h1 className="text-xl font-bold mb-4">ตำแหน่งในบริษัท : {}</h1>
+        <h1 className="text-xl font-bold mb-4">ตำแหน่งในบริษัท {companyName}</h1>
         {positions.length === 0 ? (
           <p>ไม่พบตำแหน่งงาน</p>
         ) : (
@@ -58,6 +58,15 @@ const CompanyPositionList = () => {
                   <li key={pos.position_id} className="border p-4 rounded">
                     <h3 className="text-lg font-semibold">{pos.title}</h3>
                     <p className="text-sm text-gray-700">{pos.description}</p>
+
+                    <button
+                    onClick={() =>
+                      navigate(`/company/${companyId}/position/${pos.position_id}/reviews`)
+                    }
+                    className="mt-2 px-3 py-1 bg-blue-600 text-white rounded"
+                  >
+                    ดูรีวิว
+                  </button>
                   </li>
                 ))}
               </ul>
