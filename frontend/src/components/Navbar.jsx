@@ -10,8 +10,8 @@ export default function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [, setRole] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [, setRole] = useState("");
 
 
   useEffect(() => {
