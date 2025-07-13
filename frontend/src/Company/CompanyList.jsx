@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { fetchAllCompanies } from "./companyServices/companyService.js";
-
+import { useNavigate } from "react-router-dom";
+import { verifySessionOrRedirect } from "../Authentication/services/authHelpers.js";
 const CompanyList = () => {
+  const navigate = useNavigate();
   const [companies, setCompanies] = useState([]);
   const [offset, setOffset] = useState(0);
   const limit = 10;
@@ -10,6 +12,10 @@ const CompanyList = () => {
   const [loading, setLoading] = useState(false);
 
   const loaderRef = useRef(null);
+
+  useEffect(() => {
+    verifySessionOrRedirect(navigate);
+  }, []);
 
   const loadCompanies = async () => {
     if (loading || !hasMore) return;
@@ -26,6 +32,7 @@ const CompanyList = () => {
       setLoading(false);
     }
   };
+
 
   useEffect(() => {
     loadCompanies();
@@ -59,6 +66,15 @@ const CompanyList = () => {
             />
             <h2 className="text-lg font-bold">{c.company_name}</h2>
             <p className="text-sm text-gray-600">{c.province_name}</p>
+            <p className="text-sm text-gray-600">ตำแหน่งงานในบริษัท : {c.total_positions}</p>
+             <button
+              className="mt-2 px-4 py-2 bg-blue-500 text-white rounded"
+              onClick={() =>
+                navigate(`/company/${c.company_id}/positions`)
+              }
+            >
+              ดูตำแหน่งงาน
+            </button>
           </div>
         ))}
       </div>

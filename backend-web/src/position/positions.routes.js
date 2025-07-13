@@ -1,7 +1,4 @@
-import {
-  getAllPositionsInCompanyController,
-  getAllPositionsController,
-} from "./positions.controller.js";
+import { getAllPositionsInCompanyController, getAllPositionsController } from "./positions.controller.js";
 import { Router } from "express";
 
 const positionsRouter = Router();

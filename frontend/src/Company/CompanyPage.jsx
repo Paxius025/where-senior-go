@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import Navbar from "../components/Navbar.jsx";
 import Swal from "sweetalert2";
 import { checkSession } from "../Authentication/services/authService.js";
+import { verifySessionOrRedirect } from "../Authentication/services/authHelpers.js";
 import CompanyList from "./CompanyList.jsx";
 import { useNavigate } from "react-router-dom";
 const CompanyPage = () => {
@@ -10,19 +11,16 @@ const CompanyPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const verifySession = async () => {
-      try {
-        const session = await checkSession();
+    const verify = async () => {
+
+      const session = await verifySessionOrRedirect(navigate);
+      if (session) {
         setIsLoggedIn(true);
         setRole(session.role);
-      } catch {
-        setIsLoggedIn(false);
-        setRole("");
       }
     };
-
-    verifySession();
-  }, []);
+    verify();
+  }, [navigate]);
 
   const requireLogin = async (callback) => {
     try {
@@ -43,14 +41,11 @@ const CompanyPage = () => {
   };
 
 
-
-
   return (
     <>
      <Navbar />
     <div className="p-4">
       <h1 className="text-2xl font-semibold mb-4">company</h1>
-       <CompanyList />
       {role === "senior" && (
                 <button
                   onClick={() => handleNavigateSecure("/company")}
@@ -58,6 +53,7 @@ const CompanyPage = () => {
                  เห็นเฉพาะบริษัทที่เกี่ยวข้องกับ Senior
                 </button>
               )}
+       <CompanyList />
     </div>
     </>
   );

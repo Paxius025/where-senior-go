@@ -8,10 +8,13 @@ const getAllCompaniesServices = async (limit, offset) => {
         c.name AS company_name,
         p.name AS province_name,
         l.link_url AS logo_url,
-        c.created_at
+        c.created_at,
+        COUNT(pos.position_id) AS total_positions
       FROM companies c
       LEFT JOIN provinces p ON c.province_id = p.province_id
       LEFT JOIN logos l ON c.company_id = l.company_id
+      LEFT JOIN positions pos ON pos.company_id = c.company_id
+      GROUP BY c.company_id, c.name, p.name, l.link_url, c.created_at
       ORDER BY c.name ASC
       LIMIT $1 OFFSET $2
     `;

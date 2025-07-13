@@ -8,6 +8,8 @@ import ManualPage from "./Manual/ManualPage.jsx";
 import CompanyPage from "./Company/CompanyPage.jsx";
 import ReviewPage from "./Review/ReviewPage.jsx";
 import RegisterProfile from "./UserProfile/RegisterProfilePage.jsx";
+import CompanyPositionList from './Company/CompanyPositionList.jsx';
+import CompanyList from './Company/CompanyList.jsx';
 
 function App() {
   return (
@@ -23,6 +25,7 @@ function App() {
             <Route path="/company" element={<CompanyPage />} />
             <Route path="/reviews" element={<ReviewPage />} />
             <Route path="/registerProfile" element={<RegisterProfile />} />
+            <Route path="/company/:companyId/positions" element={<CompanyPositionList />} />
             <Route path="*" element={<h1>404 Not Found</h1>} />
           </Routes>
         </div>
