@@ -9,7 +9,7 @@ import facultiesRouter from "./src/faculties/faculties.routes.js";
 import majorsRouter from "./src/majors/majors.routes.js";
 import usersProfileRouter from "./src/users/user.routes.js";
 import companiesRouter from "./src/company/companies.routes.js";  
-import positionsRouter from "./src/jobs/positions.routes.js";
+import positionsRouter from "./src/position/positions.routes.js";
 import reviewRouter from "./src/review/review.routes.js";
 
 import session from "express-session";
