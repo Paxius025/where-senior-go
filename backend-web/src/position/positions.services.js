@@ -1,8 +1,9 @@
 import pool from "../database/db.js";
 
 const getAllPositionsInCompanyServices = async (companyId) => {
-    try {
-        const result = await pool.query(`
+  try {
+    const result = await pool.query(
+      `
             SELECT
             pos.position_id,
             pos.title,
@@ -11,18 +12,19 @@ const getAllPositionsInCompanyServices = async (companyId) => {
             FROM positions pos
             LEFT JOIN fields f ON pos.field_id = f.field_id
             WHERE pos.company_id = $1;
-            `, [companyId]);
-        return result.rows;
-    } catch (error) {
-        console.error("Error fetching jobs:", error);
-        throw error;
-    }
+            `,
+      [companyId]
+    );
+    return result.rows;
+  } catch (error) {
+    console.error("Error fetching jobs:", error);
+    throw error;
+  }
 };
 
-
 const getAllPositions = async () => {
-    try {
-        const result = await pool.query(`
+  try {
+    const result = await pool.query(`
             SELECT
             pos.position_id,
             pos.title,
@@ -31,11 +33,11 @@ const getAllPositions = async () => {
             FROM positions pos
             LEFT JOIN fields f ON pos.field_id = f.field_id
             `);
-        return result.rows;
-    } catch (error) {
-        console.error("Error fetching jobs:", error);
-        throw error;
-    }
+    return result.rows;
+  } catch (error) {
+    console.error("Error fetching jobs:", error);
+    throw error;
+  }
 };
 
 export { getAllPositionsInCompanyServices, getAllPositions };
