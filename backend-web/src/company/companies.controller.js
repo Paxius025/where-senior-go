@@ -1,7 +1,6 @@
 import {
   getAllCompaniesServices,
   getTopFiveCompaniesServices,
-  getLatestFiveCompaniesServices
 } from "./companies.services.js";
 
 const getAllCompaniesController = async (req, res, next) => {
@@ -35,14 +34,5 @@ const getTopFiveCompaniesController = async (req, res, next) => {
   }
 };
 
-const getLatestFiveCompaniesController = async (req, res, next) => {
-    try {
-        const latestCompanies = await getLatestFiveCompaniesServices();
-        res.status(200).json(latestCompanies);
-    } catch (error) {
-        console.error("Error in getLatestFiveCompaniesController:", error);
-        next(error);
-    }
-};
 
-export { getAllCompaniesController, getTopFiveCompaniesController, getLatestFiveCompaniesController };
+export { getAllCompaniesController, getTopFiveCompaniesController };

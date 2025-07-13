@@ -5,18 +5,13 @@ import {
   checkSession,
 } from "../Authentication/services/authService.js";
 import Swal from "sweetalert2";
-import SearchBox from "./SearchBox.jsx";
 
 export default function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [query, setQuery] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const handleChange = (e) => {
-    setQuery(e.target.value);
-  };
 
   useEffect(() => {
     const verifySession = async () => {
@@ -161,33 +156,6 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center justify-center">
-          <div className="flex-1 max-w-md mx-8">
-            <div className="relative hover:scale-110 hover:duration-200">
-              <SearchBox
-                placeholder="Search"
-                value={query}
-                onChange={handleChange}
-                className="bg-white text-black font-bold border-0"
-              />
-
-              <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-blue-500">
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
-              </div>
-            </div>
-          </div>
-
           {isLoggedIn && (
             <button
               onClick={handleLogout}
@@ -235,33 +203,6 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Search Box - Hidden on mobile, shown on tablet */}
-          <div className="hidden sm:block flex-1 max-w-sm mx-4">
-            <div className="relative">
-              <SearchBox
-                placeholder="Search"
-                value={query}
-                onChange={handleChange}
-                className="bg-white text-black font-bold border-0 text-sm"
-              />
-
-              <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-blue-500">
-                <svg
-                  className="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
-              </div>
-            </div>
-          </div>
 
           {/* Mobile Menu Button */}
           <button
@@ -293,33 +234,6 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* Mobile Search Box */}
-        <div className="sm:hidden mt-4">
-          <div className="relative">
-            <SearchBox
-              placeholder="Search"
-              value={query}
-              onChange={handleChange}
-              className="bg-white text-black font-bold border-0 text-sm w-full"
-            />
-
-            <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-blue-500">
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-            </div>
-          </div>
-        </div>
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
