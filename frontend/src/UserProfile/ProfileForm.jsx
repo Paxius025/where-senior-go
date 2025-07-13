@@ -30,7 +30,7 @@ const ProfileForm = ({ user }) => {
   });
 
   const [, setIsLoggedIn] = useState(false);
-  const [, setRole] = useState(user.role || "");
+  const [role, setRole] = useState(user.role || "");
 
   console.log("Initial formData:", formData);
 
@@ -207,6 +207,25 @@ const ProfileForm = ({ user }) => {
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200 placeholder-gray-400"
                 />
               </div>
+               <div className="mb-4"></div>
+              <label className="block mb-1 font-semibold text-gray-700">
+                นิสิต / รุ่นพี่
+              </label>
+              <select
+                value={role}
+                onChange={(e) => {
+                  setRole(e.target.value);
+                  setFormData((prev) => ({ ...prev, role: e.target.value })); // ✅ sync เข้า formData ทันที
+                }}
+                required
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="" disabled>
+                  เลือกบทบาท
+                </option>
+                <option value="nisit">นิสิต</option>
+                <option value="senior">รุ่นพี่</option>
+              </select>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
