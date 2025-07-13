@@ -6,6 +6,7 @@ import Footer from "../components/Footer.jsx";
 import Article from "../components/Article.jsx";
 import Header from "../components/Header.jsx";
 import TopCompanies from "./dashboardComponents/TopCompanies.jsx";
+import Careers from "../components/Careers.jsx";
 
 export default function DashboardPage() {
   const navigate = useNavigate();
@@ -42,19 +43,22 @@ export default function DashboardPage() {
         <Header />
       </nav>
 
-      <div className="p-4">
+      <div className="bg-gray-100 pb-20">
+        <TopCompanies />
 
-        <TopCompanies/>
-
-        <button
-          onClick={handleClickSecureAction}
-          className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
-        >
-          ดูรายละเอียดบริษัทเพิ่มเติม
-        </button>
+        <div className="flex items-center justify-center">
+          <button
+            onClick={handleClickSecureAction}
+            className="cursor-pointer text-xl mt-4 bg-blue-500 text-white px-4 py-2 rounded
+            hover:scale-110 hover:duration"
+          >
+            ดูเพิ่มเติม
+          </button>
+        </div>
       </div>
 
       <footer className="">
+        <Careers />
         <Article />
         <Footer />
       </footer>

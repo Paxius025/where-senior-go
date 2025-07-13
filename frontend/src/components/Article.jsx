@@ -40,7 +40,7 @@ const Article = () => {
 
   return (
     <>
-      <section className="px-4 sm:px-6 lg:px-8 py-10 lg:pt-12 lg:pb-16 bg-gray-100">
+      <section className="pt-16 pb-20 bg-gray-100">
         <div className="container mx-auto max-w-7xl">
           <div className="article">
             <h1 className="mb-8 lg:mb-15 text-xl sm:text-2xl lg:text-3xl font-bold text-center text-gray-800">

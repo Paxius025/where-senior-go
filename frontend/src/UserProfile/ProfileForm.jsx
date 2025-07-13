@@ -4,19 +4,17 @@ import FacultySelect from "./FacultySelect.jsx";
 import MajorSelect from "./MajorSelect.jsx";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import {
-  checkSession,
-} from "../Authentication/services/authService.js";
+import { checkSession } from "../Authentication/services/authService.js";
 
 const requiredFields = [
-    { key: "username", label: "ชื่อผู้ใช้" },
-    { key: "email", label: "อีเมล" },
-    { key: "contact", label: "ช่องทางติดต่อ" },
-    { key: "ku_year", label: "รหัสนิสิต" },
-    { key: "faculty_id", label: "คณะ" },
-    { key: "major_id", label: "สาขา" },
-    { key: "role", label: "บทบาท" },
-  ];
+  { key: "username", label: "ชื่อผู้ใช้" },
+  { key: "email", label: "อีเมล" },
+  { key: "contact", label: "ช่องทางติดต่อ" },
+  { key: "ku_year", label: "รหัสนิสิต" },
+  { key: "faculty_id", label: "คณะ" },
+  { key: "major_id", label: "สาขา" },
+  { key: "role", label: "บทบาท" },
+];
 
 const ProfileForm = ({ user }) => {
   const [formData, setFormData] = useState({
@@ -80,16 +78,16 @@ const ProfileForm = ({ user }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    
-
-  for (let field of requiredFields) {
-    if (!formData[field.key] || formData[field.key].toString().trim() === "") {
-      alert(`กรุณากรอก ${field.label}`);
-      return;
+    for (let field of requiredFields) {
+      if (
+        !formData[field.key] ||
+        formData[field.key].toString().trim() === ""
+      ) {
+        alert(`กรุณากรอก ${field.label}`);
+        return;
+      }
     }
-  }
 
-  
     try {
       await updateUserProfile(formData);
       Swal.fire({
