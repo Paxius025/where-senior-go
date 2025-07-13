@@ -3,6 +3,8 @@ import Swal from "sweetalert2";
 import Navbar from "../components/Navbar.jsx";
 import { checkSession } from "../Authentication/services/authService.js";
 import Footer from "../components/Footer.jsx";
+import Article from "../components/Article.jsx";
+import Header from "../components/Header.jsx";
 
 export default function DashboardPage() {
   const navigate = useNavigate();
@@ -37,7 +39,9 @@ export default function DashboardPage() {
     <>
       <nav>
         <Navbar />
+        <Header />
       </nav>
+
       <div className="p-4">
         <h2 className="text-2xl font-bold">Dashboard</h2>
         <p className="mt-2 text-gray-700">
@@ -46,13 +50,14 @@ export default function DashboardPage() {
 
         <button
           onClick={handleClickSecureAction}
-          className="mt-4 bg-blue-600 text-white px-4 py-2 rounded"
+          className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
         >
           ปุ่มที่ต้องล็อกอินก่อนกด
         </button>
       </div>
 
-      <footer className="mt-80">
+      <footer className="">
+        <Article />
         <Footer />
       </footer>
     </>
