@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchTopFiveCompanies } from "../dashboardServices/companyService.js";
+import { fetchTopFiveCompanies } from "../dashboardServices/dashboardService.js";
 import '../../styles/TopCompanies.css';
 
 
