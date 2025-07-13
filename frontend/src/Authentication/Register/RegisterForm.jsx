@@ -12,7 +12,6 @@ export default function RegisterForm({ onSubmit }) {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(null);
 
-
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
   };
@@ -21,7 +20,7 @@ export default function RegisterForm({ onSubmit }) {
     password && confirmPassword && password === confirmPassword;
 
   const handleSubmit = async (e) => {
-    setRole(e.target.value)
+    setRole(e.target.value);
     e.preventDefault();
     setError(null);
 
@@ -105,7 +104,7 @@ export default function RegisterForm({ onSubmit }) {
                   />
                 </div>
 
-                <div className="mb-4"></div>
+                <div className="mb-4">
                   <label className="block mb-1 font-semibold text-gray-700">
                     Role:
                   </label>
@@ -121,6 +120,7 @@ export default function RegisterForm({ onSubmit }) {
                     <option value="nisit">นักศึกษา</option>
                     <option value="senior">รุ่นพี่</option>
                   </select>
+                </div>
 
                 <div className="mb-4">
                   <label className="block mb-1 font-semibold text-gray-700">
@@ -193,4 +193,3 @@ export default function RegisterForm({ onSubmit }) {
     </>
   );
 }
-

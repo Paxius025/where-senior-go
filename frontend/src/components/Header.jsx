@@ -20,7 +20,7 @@ const Header = () => {
               สำหรับการก้าวเข้าสู่โลกการทำงานอย่างมั่นใจ
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 sm:mb-10">
+            <div className="flex flex-col items-center gap-y-6 justify-center sm:grid sm:grid-cols-1 sm:grid-cols-2 md:grid md:grid-cols-1 md:grid-cols-2 gap-4 mb-8 sm:mb-10">
               <div className="flex items-start gap-3">
                 <div className="flex-shrink-0 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center mt-1">
                   <svg
@@ -120,7 +120,7 @@ const Header = () => {
             <div className="relative">
               <div className="absolute inset-0 bg-blue-500 rounded-2xl transform rotate-6 opacity-20"></div>
               <img
-                src="https://media.istockphoto.com/id/1326050127/vector/a-man-who-uses-a-computer-with-a-smile.jpg?s=612x612&w=0&k=20&c=Sg_uuQ5nySHScPgyGAmge1vHPnDeyA9Bcu-uc3BXWRc="
+                src="https://i.pinimg.com/1200x/a7/9a/42/a79a42b17bcb9bb8c1164fe5d44c27df.jpg"
                 alt="นักศึกษาที่กำลังใช้คอมพิวเตอร์อย่างมีความสุข"
                 className="relative rounded-2xl shadow-2xl w-full h-auto object-cover"
               />

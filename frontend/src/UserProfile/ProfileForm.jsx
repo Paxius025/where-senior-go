@@ -1,25 +1,25 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { updateUserProfile } from "./userProfileServices.js";
 import FacultySelect from "./FacultySelect.jsx";
 import MajorSelect from "./MajorSelect.jsx";
-import {
-  checkSession,
-} from "../Authentication/services/authService.js";
+import { checkSession } from "../Authentication/services/authService.js";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const requiredFields = [
-    { key: "username", label: "ชื่อผู้ใช้" },
-    { key: "email", label: "อีเมล" },
-    { key: "contact", label: "ช่องทางติดต่อ" },
-    { key: "ku_year", label: "รหัสนิสิต" },
-    { key: "faculty_id", label: "คณะ" },
-    { key: "major_id", label: "สาขา" },
-    { key: "role", label: "บทบาท" },
-  ];
+  { key: "username", label: "ชื่อผู้ใช้" },
+  { key: "email", label: "อีเมล" },
+  { key: "contact", label: "ช่องทางติดต่อ" },
+  { key: "ku_year", label: "รหัสนิสิต" },
+  { key: "faculty_id", label: "คณะ" },
+  { key: "major_id", label: "สาขา" },
+  { key: "role", label: "บทบาท" },
+];
 
 const ProfileForm = ({ user }) => {
   const [formData, setFormData] = useState({
-    username: user.username ,
-    email: user.email ,
+    username: user.username,
+    email: user.email,
     contact: user.contact || "",
     ku_year: user.ku_year || "",
     faculty_id: user.faculty_id || "",
@@ -30,7 +30,7 @@ const ProfileForm = ({ user }) => {
   });
 
   const [role, setRole] = useState(user.role || ""); // Initialize role from user data
- 
+
   const [, setIsLoggedIn] = useState(false);
 
   const handleChange = (e) => {
@@ -55,24 +55,50 @@ const ProfileForm = ({ user }) => {
 
     verifySession();
   }, []);
+
+  const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    
-
-  for (let field of requiredFields) {
-    if (!formData[field.key] || formData[field.key].toString().trim() === "") {
-      alert(`กรุณากรอก ${field.label}`);
-      return;
+    for (let field of requiredFields) {
+      if (
+        !formData[field.key] ||
+        formData[field.key].toString().trim() === ""
+      ) {
+        Swal.fire({
+          icon: "warning",
+          title: "ข้อมูลไม่ครบถ้วน",
+          text: `กรุณากรอก ${field.label}`,
+          confirmButtonText: "ตกลง",
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          allowEnterKey: true,
+        });
+        return;
+      }
     }
-  }
 
-  
     try {
       await updateUserProfile(formData);
-      alert("อัปเดตโปรไฟล์สำเร็จ");
+      Swal.fire({
+        icon: "success",
+        title: "อัปเดตโปรไฟล์สำเร็จ",
+        text: "ระบบกำลังนำคุณไปยังหน้าแรก",
+        timer: 1000,
+        showConfirmButton: false,
+      }).then(() => {
+        navigate("/");
+      });
     } catch (err) {
-      alert("เกิดข้อผิดพลาดในการอัปเดต");
+      Swal.fire({
+        icon: "error",
+        title: "เกิดข้อผิดพลาด",
+        text: "ไม่สามารถอัปเดตโปรไฟล์ได้ กรุณาลองใหม่อีกครั้ง",
+        confirmButtonText: "ตกลง",
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+      });
       console.error(err);
     }
   };
@@ -174,25 +200,24 @@ const ProfileForm = ({ user }) => {
               </div>
 
               <div className="mb-4"></div>
-                  <label className="block mb-1 font-semibold text-gray-700">
-                      นิสิต / รุ่นพี่
-                  </label>
-                  <select
-                    value={role}
-                    onChange={(e) => {
-    setRole(e.target.value);
-    setFormData((prev) => ({ ...prev, role: e.target.value })); // ✅ sync เข้า formData ทันที
-  }} 
-                    
-                    required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  >
-                    <option value="" disabled>
-                      เลือกบทบาท
-                    </option>
-                    <option value="nisit">นิสิต</option>
-                    <option value="senior">รุ่นพี่</option>
-                  </select>
+              <label className="block mb-1 font-semibold text-gray-700">
+                นิสิต / รุ่นพี่
+              </label>
+              <select
+                value={role}
+                onChange={(e) => {
+                  setRole(e.target.value);
+                  setFormData((prev) => ({ ...prev, role: e.target.value })); // ✅ sync เข้า formData ทันที
+                }}
+                required
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="" disabled>
+                  เลือกบทบาท
+                </option>
+                <option value="nisit">นิสิต</option>
+                <option value="senior">รุ่นพี่</option>
+              </select>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   คณะ

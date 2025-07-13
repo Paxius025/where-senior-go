@@ -1,14 +1,15 @@
-import './styles/style.css'
+import "./styles/style.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import RegisterPage from "./Authentication/Register/RegisterPage.jsx";
-import LoginPage from "./Authentication/Login/LoginPage.jsx";  
+import LoginPage from "./Authentication/Login/LoginPage.jsx";
 import DashboardPage from "./Dashboard/DashboardPage.jsx";
 import ProfilePage from "./UserProfile/ProfilePage.jsx";
-import ManualPage from './Manual/ManualPage.jsx';
-import CompanyPage from './Company/CompanyPage.jsx';  
-import ReviewPage from './Review/ReviewPage.jsx'; 
-function App() {
+import ManualPage from "./Manual/ManualPage.jsx";
+import CompanyPage from "./Company/CompanyPage.jsx";
+import ReviewPage from "./Review/ReviewPage.jsx";
+import RegisterProfile from "./UserProfile/RegisterProfilePage.jsx";
 
+function App() {
   return (
     <>
       <BrowserRouter>
@@ -21,13 +22,13 @@ function App() {
             <Route path="/manual" element={<ManualPage />} />
             <Route path="/company" element={<CompanyPage />} />
             <Route path="/reviews" element={<ReviewPage />} />
+            <Route path="/registerProfile" element={<RegisterProfile />} />
             <Route path="*" element={<h1>404 Not Found</h1>} />
           </Routes>
         </div>
       </BrowserRouter>
-
     </>
-  )
+  );
 }
 
-export default App
+export default App;
