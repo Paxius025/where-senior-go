@@ -6,6 +6,7 @@ import DashboardPage from "./Dashboard/DashboardPage.jsx";
 import ProfilePage from "./UserProfile/ProfilePage.jsx";
 import ManualPage from './Manual/ManualPage.jsx';
 import CompanyPage from './Company/CompanyPage.jsx';  
+import ReviewPage from './Review/ReviewPage.jsx'; 
 function App() {
 
   return (
@@ -19,6 +20,8 @@ function App() {
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/manual" element={<ManualPage />} />
             <Route path="/company" element={<CompanyPage />} />
+            <Route path="/reviews" element={<ReviewPage />} />
+            <Route path="*" element={<h1>404 Not Found</h1>} />
           </Routes>
         </div>
       </BrowserRouter>
