@@ -9,8 +9,11 @@ import facultiesRouter from "./src/faculties/faculties.routes.js";
 import majorsRouter from "./src/majors/majors.routes.js";
 import usersProfileRouter from "./src/users/user.routes.js";
 import companiesRouter from "./src/company/companies.routes.js";  
-import positionsRouter from "./src/position/positions.routes.js";
+<<<<<<< HEAD
+import positionsRouter from "./src/jobs/positions.routes.js";
 import reviewRouter from "./src/review/review.routes.js";
+=======
+>>>>>>> 7d22c56 (Update : fetch all & fetch top fiv companies)
 
 import session from "express-session";
 
