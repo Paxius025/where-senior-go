@@ -33,8 +33,7 @@ export default function DashboardPage() {
   const handleClickSecureAction = async () => {
     const allowed = await requireLogin();
     if (!allowed) return;
-
-    Swal.fire("Success", "ทำรายการสำเร็จ", "success");
+    navigate("/company");
   };
 
   return (

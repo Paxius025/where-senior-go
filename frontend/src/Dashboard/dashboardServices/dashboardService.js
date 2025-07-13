@@ -7,4 +7,5 @@ const fetchTopFiveCompanies = async () => {
     return response.data
 }
 
-export { fetchTopFiveCompanies}
+
+export { fetchTopFiveCompanies }

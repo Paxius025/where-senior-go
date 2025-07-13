@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import Navbar from "../components/Navbar.jsx";
 import Swal from "sweetalert2";
 import { checkSession } from "../Authentication/services/authService.js";
+import CompanyList from "./CompanyList.jsx";
 import { useNavigate } from "react-router-dom";
 const CompanyPage = () => {
   const [ , setIsLoggedIn] = useState(false);
@@ -49,6 +50,7 @@ const CompanyPage = () => {
      <Navbar />
     <div className="p-4">
       <h1 className="text-2xl font-semibold mb-4">company</h1>
+       <CompanyList />
       {role === "senior" && (
                 <button
                   onClick={() => handleNavigateSecure("/company")}
