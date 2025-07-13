@@ -46,7 +46,6 @@ const CompanyPage = () => {
      <Navbar />
     <div className="p-4">
       <h1 className="text-2xl font-semibold mb-4">company</h1>
-       <CompanyList />
       {role === "senior" && (
                 <button
                   onClick={() => handleNavigateSecure("/company")}

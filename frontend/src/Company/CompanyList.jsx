@@ -33,6 +33,7 @@ const CompanyList = () => {
     }
   };
 
+
   useEffect(() => {
     loadCompanies();
   }, []);
