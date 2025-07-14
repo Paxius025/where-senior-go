@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { fetchAllCompanies } from "./companyServices/companyService.js";
 import { useNavigate } from "react-router-dom";
 import { verifySessionOrRedirect } from "../Authentication/services/authHelpers.js";
+import ProvinceFilter from "../components/ProvinceFilter.jsx"; // ✅ ใช้ dropdown จังหวัดที่แยกไว้
+import SearchBox from "../components/SearchBox.jsx"; // ปรับ path ตามโครงสร้างโปรเจกต์ของคุณ
 
 const CompanyList = () => {
   const navigate = useNavigate();
@@ -14,6 +16,10 @@ const CompanyList = () => {
 
   const loaderRef = useRef(null);
 
+  // ✅ state สำหรับตัวกรอง
+  const [selectedProvince, setSelectedProvince] = useState("");
+  const [filteredCompanies, setFilteredCompanies] = useState([]);
+
   useEffect(() => {
     verifySessionOrRedirect(navigate);
   }, []);
@@ -24,12 +30,12 @@ const CompanyList = () => {
     setLoading(true);
     try {
       const res = await fetchAllCompanies(offset, limit);
-      // ตรวจสอบโครงสร้างของ res.data ก่อนนำไปใช้
-      // ถ้า res.data เป็น array โดยตรง:
-      setCompanies((prev) => [...prev, ...res.data]); // บรรทัด 26 ใน CompanyList.jsx ที่เกิด error เดิม
-      // ถ้า res.data เป็น object ที่มี array อยู่ใน property 'data' (หรือชื่ออื่น):
-      // setCompanies((prev) => [...prev, ...res.data.data]); // ตัวอย่างถ้า API คืน { data: [...] }
-      // setCompanies((prev) => [...prev, ...res.data.companies]); // ตัวอย่างถ้า API คืน { companies: [...] }
+
+      const newData = res.data;
+      const updatedCompanies = [...companies, ...newData];
+
+      setCompanies(updatedCompanies);
+      setFilteredCompanies(updatedCompanies); // ✅ เริ่มต้นแสดงทั้งหมด
 
       setOffset((prev) => prev + res.pageSize);
       setHasMore(res.hasMore);
@@ -60,55 +66,112 @@ const CompanyList = () => {
     return () => observer.disconnect();
   }, [loaderRef.current, hasMore, loading]);
 
+  // ✅ กรองบริษัทตามจังหวัดที่เลือก
+  useEffect(() => {
+    if (selectedProvince) {
+      setFilteredCompanies(
+        companies.filter((c) => c.province_name === selectedProvince)
+      );
+    } else {
+      setFilteredCompanies(companies);
+    }
+  }, [selectedProvince, companies]);
+
+  const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    let result = companies;
+
+    if (selectedProvince) {
+      result = result.filter((c) => c.province_name === selectedProvince);
+    }
+
+    if (searchQuery.trim() !== "") {
+      result = result.filter((c) =>
+        c.company_name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    setFilteredCompanies(result);
+  }, [selectedProvince, searchQuery, companies]);
+
   // ฟังก์ชันสำหรับจัดการการคลิกที่บริษัท
   const handleCompanyClick = (companyId) => {
     navigate(`/company/${companyId}/positions`);
   };
 
   return (
-    <div className="bg-gray-100">
-      <div className="grid grid-cols-1 space-y-6 px-20 pt-10 pb-10">
-        {companies.map((c) => (
-          <div
-            key={c.company_id}
-            className="flex items-center justify-center" // เพิ่ม cursor-pointer และ hover effect
-            onClick={() => handleCompanyClick(c.company_id)} // เพิ่ม onClick ตรงนี้
-          >
-            <div
-              className="bg-white flex items-center justify-between border-2 border-gray-300 px-10 py-4 rounded shadow
-                       cursor-pointer duration-200 hover:scale-110 w-400"
-            >
-              <div className="flex items-center justify-center gap-4">
-                <img
-                  // src={c.logo_url}
-                  src="https://manastudio.net/assets/images/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%AD%E0%B8%81%E0%B9%81%E0%B8%9A%E0%B8%9A%E0%B9%82%E0%B8%A5%E0%B9%82%E0%B8%81%E0%B9%89-c29130709e.svg"
-                  alt={c.company_name}
-                  className="w-24 h-24 object-contain mb-2"
+    <>
+      <section className="bg-gray-100 h-screen">
+        <div className="">
+          <div className="px-20 pt-10 flex items-center justify-between">
+            <div className="flex items-center justify-center">
+              <h1 className="text-3xl font-bold">บริษัททั้งหมด</h1>
+            </div>
+
+            <div className="flex">
+              <div className="flex items-start justify-center">
+                <SearchBox
+                  searchQuery={searchQuery}
+                  setSearchQuery={setSearchQuery}
                 />
-                <h2 className="text-lg font-bold">{c.company_name}</h2>
               </div>
 
-              <div className="text-right">
-                {" "}
-                {/* เปลี่ยนเป็น text-right เพื่อให้ชิดขวา */}
-                <p className="text-sm text-gray-600">{c.province_name}</p>
-                <p className="text-sm text-gray-600">
-                  ตำแหน่งงานในบริษัท : {c.total_positions}
-                </p>
-                {/* <button // ลบปุ่มนี้ออก หรือคอมเมนต์ไว้
-                className="mt-2 px-4 py-2 bg-blue-500 text-white rounded"
-                onClick={() => navigate(`/company/${c.company_id}/positions`)}
-              >
-                ดูตำแหน่งงาน
-              </button> */}
+              <div className="flex items-center justify-center">
+                {/* ✅ แสดง dropdown จังหวัด */}
+                <ProvinceFilter
+                  selectedProvince={selectedProvince}
+                  onSelectProvince={setSelectedProvince}
+                />
               </div>
             </div>
           </div>
-        ))}
-      </div>
-      {loading && <p className="mt-4 text-center">กำลังโหลด...</p>}
-      <div ref={loaderRef} className="h-10" /> {/* ใช้สำหรับสังเกต scroll */}
-    </div>
+
+          <div className="grid grid-cols-1 space-y-6 px-20 pt-10 pb-10">
+            {filteredCompanies.map((c) => (
+              <div
+                key={c.company_id}
+                className="flex items-center justify-center"
+                onClick={() => handleCompanyClick(c.company_id)}
+              >
+                <div
+                  className="bg-white text-lg flex items-center justify-between border-2 border-gray-300 px-10 py-4 rounded shadow
+                 cursor-pointer hover:duration-200 hover:text-blue-500 hover:text-xl w-400"
+                >
+                  <div className="flex items-center justify-center gap-4">
+                    <img
+                      src="https://manastudio.net/assets/images/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%AD%E0%B8%81%E0%B9%81%E0%B8%9A%E0%B8%9A%E0%B9%82%E0%B8%A5%E0%B9%82%E0%B8%81%E0%B9%89-c29130709e.svg"
+                      alt={c.company_name}
+                      className="w-24 h-24 object-contain mb-2"
+                    />
+                    <h2 className="font-bold">{c.company_name}</h2>
+                  </div>
+
+                  <div className="text-right">
+                    <p className="text-sm text-blue-500">{c.province_name}</p>
+                    <p className="text-sm text-gray-600">
+                      ตำแหน่งงานในบริษัท : {c.total_positions}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* ✅ เพิ่มข้อความเมื่อไม่พบข้อมูล */}
+          {!loading && filteredCompanies.length === 0 && (
+            <div className="w-full text-center py-20 text-gray-500">
+              <div className="text-2xl font-semibold mb-2">
+                ไม่พบข้อมูลบริษัท
+              </div>
+              <p className="text-sm text-gray-400">
+                ลองเปลี่ยนคำค้นหาหรือเลือกจังหวัดอื่นอีกครั้ง
+              </p>
+            </div>
+          )}
+        </div>
+      </section>
+    </>
   );
 };
 

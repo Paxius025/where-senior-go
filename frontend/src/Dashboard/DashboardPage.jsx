@@ -49,8 +49,8 @@ export default function DashboardPage() {
         <div className="flex items-center justify-center">
           <button
             onClick={handleClickSecureAction}
-            className="cursor-pointer text-xl mt-4 bg-blue-500 text-white px-4 py-2 rounded
-            hover:scale-110 hover:duration"
+            className="cursor-pointer text-xl mt-4 bg-blue-500 text-white px-6 py-2.5 rounded
+            hover:scale-110 hover:duration-200"
           >
             ดูเพิ่มเติม
           </button>

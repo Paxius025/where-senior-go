@@ -1,0 +1,10 @@
+* {
+    box-sizing: border-box;
+}
+
+@media (min-width: 1520px) and (max-width: 1720px) {
+    .container {
+        padding-right: 100px;
+        padding-left: 100px;
+    }
+}

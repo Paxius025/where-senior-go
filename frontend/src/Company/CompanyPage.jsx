@@ -43,7 +43,6 @@ const CompanyPage = () => {
     <>
       <Navbar />
       <div className="bg-gray-100">
-        <h1 className="text-2xl font-semibold mb-4">company</h1>
         {role === "senior" && (
           <>
             <h1>เห็นเฉพาะบริษัทที่เกี่ยวข้องกับ Senior</h1>{" "}
