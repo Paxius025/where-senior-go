@@ -46,8 +46,8 @@ const ProfileForm = ({ user }) => {
         const session = await checkSession();
         setIsLoggedIn(true);
         setRole(session.role);
+        console.log("Session ", session);
         setFormData((prev) => ({ ...prev, role: session.role ?? "" }));
-        console.log("Session role:", session.role);
       } catch {
         setIsLoggedIn(false);
         setRole("");
@@ -66,7 +66,6 @@ const ProfileForm = ({ user }) => {
         setIsLoggedIn(true);
         setRole(session.role);
         setFormData((prev) => ({ ...prev, role: session.role ?? "" }));
-        console.log("Session role:", session.role);
       } catch {
         setIsLoggedIn(false);
         setRole("");
@@ -149,13 +148,6 @@ const ProfileForm = ({ user }) => {
               onSubmit={handleSubmit}
               className="max-w-5xl mx-auto bg-white rounded-r-xl  shadow-xl p-8 space-y-6"
             >
-              {/* <div className="text-center mb-6">
-                <h2 className="text-2xl font-bold text-gray-800 mb-2">
-                  ลงทะเบียนนักศึกษา
-                </h2>
-                <p className="text-gray-600">กรอกข้อมูลส่วนตัวของท่าน</p>
-              </div> */}
-
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   ชื่อผู้ใช้

@@ -5,6 +5,11 @@ dotenv.config({ quiet: true });
 const loginController = async (req, res, next) => {
   try {
     const { emailOrUsername, password } = req.body;
+
+    if (!emailOrUsername || !password) {
+      return res.status(400).json({ error: "Email/Username and password are required" });
+    }
+
     const user = await loginService(emailOrUsername, password);
     if (!user) {
       return res.status(401).json({ error: "Invalid credentials" });
@@ -27,6 +32,11 @@ const loginController = async (req, res, next) => {
 const registerController = async (req, res, next) => {
   try {
     const { email, username, password, role } = req.body;
+
+    if (!email || !username || !password || !role) {
+      return res.status(400).json({ error: "All fields are required" });
+    }
+
     const user = await registerService(email, username, password, role);
 
     req.session.user = {

@@ -27,12 +27,16 @@ const registerService = async (email, username, password, role) => {
     }
 
     const result = await client.query(
-      "INSERT INTO users (email, username, password_hash, role) VALUES ($1, $2, $3, $4) RETURNING user_id",
+      "INSERT INTO users (email, username, password_hash, role) VALUES ($1, $2, $3, $4) RETURNING user_id, username, email, role",
       [email, username, hashedPassword, role]
     );
 
     const user = result.rows[0];
-    console.log(user)
+
+    if (!user) {
+      throw new Error("User registration failed");
+    }
+
     return user;
   } finally {
     client.release();
@@ -57,7 +61,7 @@ const loginService = async (usernameOrEmail, password) => {
     if (!isValid) {
       throw new Error("Invalid password");
     }
-    
+
     return user;
   } finally {
     client.release();

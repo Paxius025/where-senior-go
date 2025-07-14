@@ -20,9 +20,18 @@ export default function RegisterForm({ onSubmit }) {
     password && confirmPassword && password === confirmPassword;
 
   const handleSubmit = async (e) => {
-    setRole(e.target.value);
     e.preventDefault();
     setError(null);
+
+    if (!email || !username || !password || !confirmPassword) {
+    setError("กรุณากรอกข้อมูลให้ครบถ้วน");
+    return;
+  }
+
+  if (!role) {
+    setError("กรุณาเลือกบทบาทของคุณ");
+    return;
+  }
 
     if (password !== confirmPassword) {
       setError("รหัสผ่านไม่ตรงกัน");
@@ -102,24 +111,6 @@ export default function RegisterForm({ onSubmit }) {
                     required
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
-                </div>
-
-                <div className="mb-4">
-                  <label className="block mb-1 font-semibold text-gray-700">
-                    Role:
-                  </label>
-                  <select
-                    value={role}
-                    onChange={(e) => setRole(e.target.value)}
-                    required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  >
-                    <option value="" disabled>
-                      เลือกบทบาทของคุณ
-                    </option>
-                    <option value="nisit">นักศึกษา</option>
-                    <option value="senior">รุ่นพี่</option>
-                  </select>
                 </div>
 
                 <div className="mb-4">
