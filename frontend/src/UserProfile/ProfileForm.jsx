@@ -46,7 +46,6 @@ const ProfileForm = ({ user }) => {
         const session = await checkSession();
         setIsLoggedIn(true);
         setRole(session.role);
-        console.log("Session ", session);
         setFormData((prev) => ({ ...prev, role: session.role ?? "" }));
       } catch {
         setIsLoggedIn(false);
